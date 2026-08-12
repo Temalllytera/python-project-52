@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Менеджер задач</title>
-</head>
-<body>
-    <h1>Привет от Хекслета!</h1>
-    <p>Практические курсы по программированию</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold">Привет от Хекслета!</h1>
+        <p class="col-md-8 fs-4">Практические курсы по программированию</p>
+        <a class="btn btn-primary btn-lg"
+           href="https://ru.hexlet.io/courses" target="_blank"
+           rel="noopener">Учиться</a>
+    </div>
+</div>
+{% endblock %}
