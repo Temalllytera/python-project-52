@@ -1,13 +1,27 @@
 [project]
 name = "hexlet-code"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.9"
+description = "Task Manager"
+requires-python = ">=3.10"
 dependencies = [
-    "dj-database-url>=3.0.1",
-    "django>=4.2.30",
-    "gunicorn>=23.0.0",
-    "psycopg2-binary>=2.9.12",
-    "python-dotenv>=1.2.1",
+    "django>=5.2",
+    "python-dotenv>=1.0",
+    "dj-database-url>=2.2",
+    "psycopg2-binary>=2.9",
+    "gunicorn>=23.0",
+    "whitenoise>=6.7",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+]
+
+[tool.ruff]
+exclude = [
+    "migrations",
+    "task_manager/settings.py",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
