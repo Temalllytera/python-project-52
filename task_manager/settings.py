@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'task_manager.users',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'OPTIONS': {'min_length': 3},
     },
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'

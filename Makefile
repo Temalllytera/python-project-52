@@ -16,10 +16,13 @@ render-start:
 start:
 	uv run python manage.py runserver
 
+test:
+	uv run python manage.py test
+
 lint:
 	uv run ruff check .
 
 lint-fix:
 	uv run ruff check --fix .
 
-.PHONY: install collectstatic migrate build render-start start lint lint-fix
+.PHONY: install collectstatic migrate build render-start start test lint lint-fix
