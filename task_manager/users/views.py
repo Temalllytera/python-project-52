@@ -5,22 +5,19 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from task_manager.mixins import AuthRequiredMixin
 from task_manager.users.forms import UserForm
 
 
-class UserPermissionMixin:
+class UserPermissionMixin(AuthRequiredMixin):
+    permission_message = 'У вас нет прав для изменения другого пользователя.'
+
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(
-                request,
-                'Вы не авторизованы! Пожалуйста, выполните вход.',
-            )
+            messages.error(request, self.auth_message)
             return redirect('login')
         if request.user.pk != self.get_object().pk:
-            messages.error(
-                request,
-                'У вас нет прав для изменения другого пользователя.',
-            )
+            messages.error(request, self.permission_message)
             return redirect('users_index')
         return super().dispatch(request, *args, **kwargs)
 
@@ -66,3 +63,10 @@ class UserDeleteView(UserPermissionMixin, SuccessMessageMixin, DeleteView):
         'title': 'Удаление пользователя',
         'button_text': 'Да, удалить',
     }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_name'] = (
+            f'{self.object.first_name} {self.object.last_name}'
+        )
+        return context

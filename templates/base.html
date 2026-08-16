@@ -23,6 +23,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'users_index' %}">Пользователи</a>
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'statuses_index' %}">Статусы</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav align-items-lg-center">
                 {% if user.is_authenticated %}
