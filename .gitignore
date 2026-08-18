@@ -6,3 +6,8 @@ db.sqlite3
 staticfiles/
 .DS_Store
 .ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.idea/
+.vscode/
