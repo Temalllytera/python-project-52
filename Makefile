@@ -1,8 +1,11 @@
 install:
 	uv sync
 
+tailwind:
+	uv run python manage.py tailwind build
+
 collectstatic:
-	uv run python manage.py collectstatic --no-input
+	uv run python manage.py collectstatic --no-input --ignore source.css
 
 migrate:
 	uv run python manage.py migrate
@@ -14,7 +17,7 @@ render-start:
 	uv run gunicorn task_manager.wsgi
 
 start:
-	uv run python manage.py runserver
+	uv run python manage.py tailwind runserver
 
 test:
 	uv run python manage.py test
@@ -32,4 +35,4 @@ lint-fix:
 
 check: lint test-coverage
 
-.PHONY: install collectstatic migrate build render-start start test test-coverage lint lint-fix check
+.PHONY: install tailwind collectstatic migrate build render-start start test test-coverage lint lint-fix check

@@ -3,14 +3,13 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-5">{{ title }}</h1>
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <p>Вы уверены, что хотите удалить {{ object_name }}?</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">{{ button_text }}</button>
-        </form>
-    </div>
+<h1 class="mb-8 text-3xl font-bold">{{ title }}</h1>
+<div class="mx-auto max-w-lg rounded-lg bg-white p-6 shadow">
+    <p class="mb-6">Вы уверены, что хотите удалить {{ object_name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit"
+                class="rounded-md bg-red-600 px-5 py-2 text-white hover:bg-red-700">{{ button_text }}</button>
+    </form>
 </div>
 {% endblock %}

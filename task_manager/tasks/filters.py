@@ -1,6 +1,7 @@
 import django_filters
 from django import forms
 
+from task_manager.forms import StyledFilterForm
 from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
 
@@ -19,6 +20,7 @@ class TaskFilter(django_filters.FilterSet):
     class Meta:
         model = Task
         fields = ['status', 'executor', 'labels']
+        form = StyledFilterForm
 
     def filter_self_tasks(self, queryset, name, value):
         if value:

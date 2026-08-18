@@ -10,9 +10,9 @@ dependencies = [
     "psycopg2-binary>=2.9",
     "gunicorn>=23.0",
     "whitenoise>=6.7",
-    "django-bootstrap5>=26.2",
     "django-filter>=26.1",
     "sentry-sdk>=2.68.0",
+    "django-tailwind-cli>=4.7.0",
 ]
 
 [dependency-groups]

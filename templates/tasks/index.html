@@ -1,45 +1,69 @@
 {% extends 'base.html' %}
-{% load django_bootstrap5 %}
 
 {% block title %}Задачи{% endblock %}
 
 {% block content %}
-<h1 class="mb-5">Задачи</h1>
-<a class="btn btn-primary mb-3" href="{% url 'task_create' %}">Создать задачу</a>
+<h1 class="mb-6 text-3xl font-bold">Задачи</h1>
+<a class="mb-6 inline-block rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+   href="{% url 'task_create' %}">Создать задачу</a>
 
-<form method="get" class="mb-4">
-    {% bootstrap_form filter.form %}
-    <button type="submit" class="btn btn-primary">Показать</button>
+<form method="get" class="mb-6 rounded-lg bg-white p-4 shadow">
+    <div class="grid gap-4 md:grid-cols-3">
+        {% for field in filter.form %}
+            {% if field.name != 'self_tasks' %}
+                <div>
+                    <label class="mb-1 block text-sm font-medium"
+                           for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="mt-4 flex items-center gap-2">
+        {{ filter.form.self_tasks }}
+        <label class="text-sm"
+               for="{{ filter.form.self_tasks.id_for_label }}">Только свои задачи</label>
+    </div>
+    <button type="submit"
+            class="mt-4 rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">Показать</button>
 </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Статус</th>
-            <th>Автор</th>
-            <th>Исполнитель</th>
-            <th>Дата создания</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task.id }}</td>
-            <td><a href="{% url 'task_show' task.id %}">{{ task.name }}</a></td>
-            <td>{{ task.status.name }}</td>
-            <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
-            <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
-            <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
-            <td>
-                <a href="{% url 'task_show' task.id %}">Показать</a>
-                <a href="{% url 'task_update' task.id %}">Изменить</a>
-                <a href="{% url 'task_delete' task.id %}" class="text-danger">Удалить</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="overflow-x-auto rounded-lg bg-white shadow">
+    <table class="min-w-full text-left text-sm">
+        <thead class="border-b bg-gray-100 text-xs uppercase text-gray-600">
+            <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Имя</th>
+                <th class="px-4 py-3">Статус</th>
+                <th class="px-4 py-3">Автор</th>
+                <th class="px-4 py-3">Исполнитель</th>
+                <th class="px-4 py-3">Дата создания</th>
+                <th class="px-4 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr class="border-b last:border-0">
+                <td class="px-4 py-3">{{ task.id }}</td>
+                <td class="px-4 py-3">
+                    <a class="text-blue-600 hover:underline"
+                       href="{% url 'task_show' task.id %}">{{ task.name }}</a>
+                </td>
+                <td class="px-4 py-3">{{ task.status.name }}</td>
+                <td class="px-4 py-3">{{ task.author.first_name }} {{ task.author.last_name }}</td>
+                <td class="px-4 py-3">{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
+                <td class="px-4 py-3">{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                <td class="space-x-3 px-4 py-3">
+                    <a class="text-blue-600 hover:underline"
+                       href="{% url 'task_show' task.id %}">Показать</a>
+                    <a class="text-blue-600 hover:underline"
+                       href="{% url 'task_update' task.id %}">Изменить</a>
+                    <a class="text-red-600 hover:underline"
+                       href="{% url 'task_delete' task.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

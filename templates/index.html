@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
-        <h1 class="display-4 fw-bold">Привет от Хекслета!</h1>
-        <p class="col-md-8 fs-4">Практические курсы по программированию</p>
-        <a class="btn btn-primary btn-lg"
-           href="https://ru.hexlet.io/courses" target="_blank"
-           rel="noopener">Учиться</a>
-    </div>
+<div class="rounded-lg bg-white p-10 shadow">
+    <h1 class="mb-4 text-4xl font-bold">Привет от Хекслета!</h1>
+    <p class="mb-6 max-w-2xl text-lg text-gray-600">
+        Ставьте задачи, назначайте исполнителей, отслеживайте статусы
+        и группируйте работу метками.
+    </p>
+    {% if user.is_authenticated %}
+        <a class="inline-block rounded-md bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+           href="{% url 'tasks_index' %}">Узнать больше</a>
+    {% else %}
+        <a class="inline-block rounded-md bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+           href="{% url 'user_create' %}">Узнать больше</a>
+    {% endif %}
 </div>
 {% endblock %}

@@ -3,29 +3,34 @@
 {% block title %}Метки{% endblock %}
 
 {% block content %}
-<h1 class="mb-5">Метки</h1>
-<a class="btn btn-primary mb-3" href="{% url 'label_create' %}">Создать метку</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Дата создания</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for label in labels %}
-        <tr>
-            <td>{{ label.id }}</td>
-            <td>{{ label.name }}</td>
-            <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
-            <td>
-                <a href="{% url 'label_update' label.id %}">Изменить</a>
-                <a href="{% url 'label_delete' label.id %}" class="text-danger">Удалить</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h1 class="mb-6 text-3xl font-bold">Метки</h1>
+<a class="mb-6 inline-block rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+   href="{% url 'label_create' %}">Создать метку</a>
+<div class="overflow-x-auto rounded-lg bg-white shadow">
+    <table class="min-w-full text-left text-sm">
+        <thead class="border-b bg-gray-100 text-xs uppercase text-gray-600">
+            <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Имя</th>
+                <th class="px-4 py-3">Дата создания</th>
+                <th class="px-4 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for label in labels %}
+            <tr class="border-b last:border-0">
+                <td class="px-4 py-3">{{ label.id }}</td>
+                <td class="px-4 py-3">{{ label.name }}</td>
+                <td class="px-4 py-3">{{ label.created_at|date:"d.m.Y H:i" }}</td>
+                <td class="space-x-3 px-4 py-3">
+                    <a class="text-blue-600 hover:underline"
+                       href="{% url 'label_update' label.id %}">Изменить</a>
+                    <a class="text-red-600 hover:underline"
+                       href="{% url 'label_delete' label.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

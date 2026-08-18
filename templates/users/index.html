@@ -3,30 +3,34 @@
 {% block title %}Пользователи{% endblock %}
 
 {% block content %}
-<h1 class="mb-5">Пользователи</h1>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>Полное имя</th>
-            <th>Дата создания</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in users %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.username }}</td>
-            <td>{{ item.first_name }} {{ item.last_name }}</td>
-            <td>{{ item.date_joined|date:"d.m.Y H:i" }}</td>
-            <td>
-                <a href="{% url 'user_update' item.id %}">Изменить</a>
-                <a href="{% url 'user_delete' item.id %}" class="text-danger">Удалить</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h1 class="mb-8 text-3xl font-bold">Пользователи</h1>
+<div class="overflow-x-auto rounded-lg bg-white shadow">
+    <table class="min-w-full text-left text-sm">
+        <thead class="border-b bg-gray-100 text-xs uppercase text-gray-600">
+            <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Имя пользователя</th>
+                <th class="px-4 py-3">Полное имя</th>
+                <th class="px-4 py-3">Дата создания</th>
+                <th class="px-4 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in users %}
+            <tr class="border-b last:border-0">
+                <td class="px-4 py-3">{{ item.id }}</td>
+                <td class="px-4 py-3">{{ item.username }}</td>
+                <td class="px-4 py-3">{{ item.first_name }} {{ item.last_name }}</td>
+                <td class="px-4 py-3">{{ item.date_joined|date:"d.m.Y H:i" }}</td>
+                <td class="space-x-3 px-4 py-3">
+                    <a class="text-blue-600 hover:underline"
+                       href="{% url 'user_update' item.id %}">Изменить</a>
+                    <a class="text-red-600 hover:underline"
+                       href="{% url 'user_delete' item.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

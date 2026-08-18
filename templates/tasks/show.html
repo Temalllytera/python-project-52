@@ -3,41 +3,43 @@
 {% block title %}{{ task.name }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-5">Просмотр задачи</h1>
-<div class="row">
-    <div class="col-md-8">
-        <h2>{{ task.name }}</h2>
-        <p>{{ task.description }}</p>
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Автор</th>
-                    <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
-                </tr>
-                <tr>
-                    <th>Исполнитель</th>
-                    <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
-                </tr>
-                <tr>
-                    <th>Статус</th>
-                    <td>{{ task.status.name }}</td>
-                </tr>
-                <tr>
-                    <th>Метки</th>
-                    <td>
-                        {% for label in task.labels.all %}
-                            {{ label.name }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Дата создания</th>
-                    <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-primary" href="{% url 'task_update' task.id %}">Изменить</a>
-        <a class="btn btn-danger" href="{% url 'task_delete' task.id %}">Удалить</a>
+<h1 class="mb-8 text-3xl font-bold">Просмотр задачи</h1>
+<div class="max-w-2xl rounded-lg bg-white p-6 shadow">
+    <h2 class="mb-2 text-2xl font-semibold">{{ task.name }}</h2>
+    <p class="mb-6 text-gray-600">{{ task.description }}</p>
+    <table class="mb-6 w-full text-left text-sm">
+        <tbody>
+            <tr class="border-b">
+                <th class="py-2 pr-4 font-medium">Автор</th>
+                <td class="py-2">{{ task.author.first_name }} {{ task.author.last_name }}</td>
+            </tr>
+            <tr class="border-b">
+                <th class="py-2 pr-4 font-medium">Исполнитель</th>
+                <td class="py-2">{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
+            </tr>
+            <tr class="border-b">
+                <th class="py-2 pr-4 font-medium">Статус</th>
+                <td class="py-2">{{ task.status.name }}</td>
+            </tr>
+            <tr class="border-b">
+                <th class="py-2 pr-4 font-medium">Метки</th>
+                <td class="py-2">
+                    {% for label in task.labels.all %}
+                        {{ label.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th class="py-2 pr-4 font-medium">Дата создания</th>
+                <td class="py-2">{{ task.created_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="space-x-3">
+        <a class="inline-block rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700"
+           href="{% url 'task_update' task.id %}">Изменить</a>
+        <a class="inline-block rounded-md bg-red-600 px-5 py-2 text-white hover:bg-red-700"
+           href="{% url 'task_delete' task.id %}">Удалить</a>
     </div>
 </div>
 {% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
+from task_manager.forms import LoginForm
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -11,6 +13,7 @@ class IndexView(TemplateView):
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'form.html'
+    form_class = LoginForm
     next_page = reverse_lazy('index')
     success_message = 'Вы залогинены'
     extra_context = {

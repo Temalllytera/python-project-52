@@ -2,8 +2,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+from task_manager.forms import StyledFormMixin
 
-class UserForm(UserCreationForm):
+
+class UserForm(StyledFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = (
