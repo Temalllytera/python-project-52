@@ -19,10 +19,17 @@ start:
 test:
 	uv run python manage.py test
 
+test-coverage:
+	uv run coverage run manage.py test
+	uv run coverage report
+	uv run coverage xml
+
 lint:
 	uv run ruff check .
 
 lint-fix:
 	uv run ruff check --fix .
 
-.PHONY: install collectstatic migrate build render-start start test lint lint-fix
+check: lint test-coverage
+
+.PHONY: install collectstatic migrate build render-start start test test-coverage lint lint-fix check

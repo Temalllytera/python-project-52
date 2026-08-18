@@ -18,6 +18,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ruff>=0.6",
+    "coverage>=7.6",
 ]
 
 [tool.ruff]
@@ -28,3 +29,18 @@ exclude = [
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W"]
+
+[tool.coverage.run]
+source = ["task_manager"]
+omit = [
+    "*/migrations/*",
+    "*/tests.py",
+    "*/apps.py",
+    "*/asgi.py",
+    "*/wsgi.py",
+    "manage.py",
+]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
