@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from task_manager.mixins import AuthRequiredMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteProtectionMixin
 from task_manager.users.forms import UserForm
 
 
@@ -53,12 +53,21 @@ class UserUpdateView(UserPermissionMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-class UserDeleteView(UserPermissionMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(
+    UserPermissionMixin,
+    DeleteProtectionMixin,
+    SuccessMessageMixin,
+    DeleteView,
+):
     model = User
     template_name = 'delete.html'
     context_object_name = 'user_object'
     success_url = reverse_lazy('users_index')
     success_message = 'Пользователь успешно удален'
+    protected_message = (
+        'Невозможно удалить пользователя, потому что он используется'
+    )
+    protected_url = reverse_lazy('users_index')
     extra_context = {
         'title': 'Удаление пользователя',
         'button_text': 'Да, удалить',

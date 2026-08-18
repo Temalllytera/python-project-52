@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<h1 class="mb-5">Задачи</h1>
+<a class="btn btn-primary mb-3" href="{% url 'task_create' %}">Создать задачу</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Статус</th>
+            <th>Автор</th>
+            <th>Исполнитель</th>
+            <th>Дата создания</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.id }}</td>
+            <td><a href="{% url 'task_show' task.id %}">{{ task.name }}</a></td>
+            <td>{{ task.status.name }}</td>
+            <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
+            <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
+            <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+            <td>
+                <a href="{% url 'task_show' task.id %}">Показать</a>
+                <a href="{% url 'task_update' task.id %}">Изменить</a>
+                <a href="{% url 'task_delete' task.id %}" class="text-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+[
+    {
+        "model": "tasks.task",
+        "pk": 1,
+        "fields": {
+            "name": "Написать тесты",
+            "description": "Покрыть тестами CRUD задач",
+            "status": 1,
+            "author": 1,
+            "executor": 2,
+            "created_at": "2024-01-10T10:00:00Z"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 2,
+        "fields": {
+            "name": "Задеплоить проект",
+            "description": "Выкатить на render",
+            "status": 2,
+            "author": 2,
+            "executor": 1,
+            "created_at": "2024-01-11T10:00:00Z"
+        }
+    }
+]

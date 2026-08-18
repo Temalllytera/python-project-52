@@ -24,3 +24,14 @@ class DeleteProtectionMixin:
         except ProtectedError:
             messages.error(request, self.protected_message)
             return redirect(self.protected_url)
+
+
+class AuthorDeletionMixin:
+    author_message = ''
+    author_url = ''
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user != self.get_object().author:
+            messages.error(request, self.author_message)
+            return redirect(self.author_url)
+        return super().dispatch(request, *args, **kwargs)

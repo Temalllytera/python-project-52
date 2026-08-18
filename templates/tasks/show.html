@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-5">Просмотр задачи</h1>
+<div class="row">
+    <div class="col-md-8">
+        <h2>{{ task.name }}</h2>
+        <p>{{ task.description }}</p>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Автор</th>
+                    <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Исполнитель</th>
+                    <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>Статус</th>
+                    <td>{{ task.status.name }}</td>
+                </tr>
+                <tr>
+                    <th>Дата создания</th>
+                    <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary" href="{% url 'task_update' task.id %}">Изменить</a>
+        <a class="btn btn-danger" href="{% url 'task_delete' task.id %}">Удалить</a>
+    </div>
+</div>
+{% endblock %}
