@@ -23,6 +23,14 @@
                     <td>{{ task.status.name }}</td>
                 </tr>
                 <tr>
+                    <th>Метки</th>
+                    <td>
+                        {% for label in task.labels.all %}
+                            {{ label.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
                     <th>Дата создания</th>
                     <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 </tr>
