@@ -99,6 +99,49 @@ class TaskCRUDTestCase(TestCase):
         self.assertTrue(Task.objects.filter(pk=self.other_task.pk).exists())
 
 
+class TaskFilterTestCase(TestCase):
+    fixtures = ['users.json', 'statuses.json', 'labels.json', 'tasks.json']
+
+    def setUp(self):
+        self.user = User.objects.get(pk=1)
+        self.own_task = Task.objects.get(pk=1)
+        self.other_task = Task.objects.get(pk=2)
+        self.client.force_login(self.user)
+
+    def test_filter_by_status(self):
+        response = self.client.get(reverse('tasks_index'), {'status': 1})
+        tasks = response.context['tasks']
+        self.assertIn(self.own_task, tasks)
+        self.assertNotIn(self.other_task, tasks)
+
+    def test_filter_by_executor(self):
+        response = self.client.get(reverse('tasks_index'), {'executor': 2})
+        tasks = response.context['tasks']
+        self.assertIn(self.own_task, tasks)
+        self.assertNotIn(self.other_task, tasks)
+
+    def test_filter_by_label(self):
+        response = self.client.get(reverse('tasks_index'), {'labels': 1})
+        tasks = response.context['tasks']
+        self.assertIn(self.own_task, tasks)
+        self.assertNotIn(self.other_task, tasks)
+
+    def test_filter_self_tasks(self):
+        response = self.client.get(
+            reverse('tasks_index'),
+            {'self_tasks': 'on'},
+        )
+        tasks = response.context['tasks']
+        self.assertIn(self.own_task, tasks)
+        self.assertNotIn(self.other_task, tasks)
+
+    def test_no_filter_shows_all(self):
+        response = self.client.get(reverse('tasks_index'))
+        tasks = response.context['tasks']
+        self.assertIn(self.own_task, tasks)
+        self.assertIn(self.other_task, tasks)
+
+
 class ProtectionTestCase(TestCase):
     fixtures = ['users.json', 'statuses.json', 'labels.json', 'tasks.json']
 
