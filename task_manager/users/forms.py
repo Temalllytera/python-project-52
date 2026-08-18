@@ -25,8 +25,6 @@ class UserForm(StyledFormMixin, UserCreationForm):
         super().__init__(*args, **kwargs)
         if 'usable_password' in self.fields:
             del self.fields['usable_password']
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
         self.fields['password1'].label = 'Пароль'
         self.fields['password2'].label = 'Подтверждение пароля'
 
