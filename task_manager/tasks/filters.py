@@ -1,12 +1,22 @@
 import django_filters
 from django import forms
+from django.contrib.auth.models import User
 
 from task_manager.forms import StyledFilterForm
 from task_manager.labels.models import Label
+from task_manager.tasks.forms import UserChoiceField
 from task_manager.tasks.models import Task
 
 
+class UserFilterField(django_filters.ModelChoiceFilter):
+    field_class = UserChoiceField
+
+
 class TaskFilter(django_filters.FilterSet):
+    executor = UserFilterField(
+        queryset=User.objects.all(),
+        label='Исполнитель',
+    )
     labels = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         label='Метка',
