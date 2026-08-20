@@ -1,5 +1,6 @@
 [![Python CI](https://github.com/Temalllytera/python-project-52/actions/workflows/main.yml/badge.svg)](https://github.com/Temalllytera/python-project-52/actions/workflows/main.yml)
 [![hexlet-check](https://github.com/Temalllytera/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Temalllytera/python-project-52/actions/workflows/hexlet-check.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Temalllytera_python-project-52&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Temalllytera_python-project-52)
 
 ## Деплой
 
